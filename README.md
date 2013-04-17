@@ -16,7 +16,7 @@ And then execute:
 
 Create a new initializer `config/initializers/converge.rb` and define your rules, as for example:
 
-```
+```ruby
 Converge.configure do
   redirect "/en/contact", "/en/about-us"
   redirect({path: "/secure", scheme: "http"}, {scheme: "https"})
@@ -29,8 +29,7 @@ end
 
 Use the middleware: `config/application.rb`
 
-```
-
+```ruby
 module MyApp
   class Application < Rails::Application
     ...    
@@ -38,7 +37,6 @@ module MyApp
     ...    
   end
 end
-
 ```
 
 ## TODO
