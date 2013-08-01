@@ -2,11 +2,12 @@ require 'addressable/uri'
 
 module Converge
   class Engine
-    attr_accessor :code, :headers, :body
+    attr_accessor :env, :code, :headers, :body, :match
 
     def initialize(env, rules)
       @env = env
       @code, @headers, @body = 404, {}, []
+      @match = nil
       @rewritten = false
 
       rules.each do |rule|
@@ -16,7 +17,11 @@ module Converge
           else
             self.instance_exec(&rule.block)
           end
-          break if rewritten?
+
+          if rewritten?
+            @match = rule
+            break
+          end
         end
       end
     end
